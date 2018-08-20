@@ -1,6 +1,6 @@
-package com.jiangkedev;
+package com.jiangkedev.redis;
 
-import com.jiangkedev.redis.RedisCacheUtil;
+import com.jiangkedev.ApplicationBaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 
@@ -14,6 +14,8 @@ public class RedisCacheUtilTest extends ApplicationBaseTest {
     private RedisCacheUtil redisCacheUtil;
     @Test
     public void setCacheObjectTest(){
-        redisCacheUtil.setCacheObject("111","11111");
+        if(!redisCacheUtil.sIsMember("test","111")){
+            redisCacheUtil.sAdd("test","111");
+        }
     }
 }
