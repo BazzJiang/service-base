@@ -1,6 +1,13 @@
 package com.jiangkedev.redis;
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.RedisURI;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.resource.ClientResources;
+import io.lettuce.core.resource.DefaultClientResources;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -9,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * author:bazz jiang
@@ -16,11 +24,12 @@ import org.springframework.data.redis.core.RedisTemplate;
  * email:bazzjiang@gmail.com
  */
 @Configuration
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport{
     @Bean
-    public RedisTemplate<String,Object> redisTemplate(LettuceConnectionFactory redisConnectionFactory){
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate redisTemplate(LettuceConnectionFactory redisConnectionFactory){
+        RedisTemplate redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         //使用fast json
         GenericFastJsonRedisSerializer fastJsonRedisSerializer = new GenericFastJsonRedisSerializer();
