@@ -16,7 +16,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 public class DistributedLockAutoConfiguration {
     @Bean
     @ConditionalOnBean(StringRedisTemplate.class)
-    public RedisDistributedLock redisDistributedLock(StringRedisTemplate redisTemplate){
+    public DistributedLock redisDistributedLock(StringRedisTemplate redisTemplate){
         return new RedisDistributedLock(redisTemplate);
     }
 }

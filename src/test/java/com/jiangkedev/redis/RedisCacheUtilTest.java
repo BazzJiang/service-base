@@ -1,7 +1,7 @@
 package com.jiangkedev.redis;
 
 import com.jiangkedev.ApplicationBaseTest;
-import com.jiangkedev.lock.RedisDistributedLock;
+import com.jiangkedev.lock.RedisLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.testng.annotations.Test;
@@ -13,8 +13,6 @@ import org.testng.annotations.Test;
  */
 public class RedisCacheUtilTest extends ApplicationBaseTest {
     @Autowired
-    private RedisDistributedLock distributedLock;
-    @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
     private RedisCacheUtil redisCacheUtil;
@@ -25,13 +23,11 @@ public class RedisCacheUtilTest extends ApplicationBaseTest {
         }
     }
     @Test
-    public void testDistributedGetLock(){
-        boolean res = distributedLock.acquire("jiangkelovezll","zll",20000);
-        System.out.println(res);
+    public void testAddLock(){
+        addddLock();
     }
-    @Test
-    public void testDistributedReleaseLock(){
-        boolean res = distributedLock.release("jiangkelovezll","zll");
-        System.out.println(res);
+    @RedisLock(value = "jiangke",keepMills = 300000)
+    public void addddLock(){
+        System.out.println("hello world!");
     }
 }
