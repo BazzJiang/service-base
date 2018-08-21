@@ -1,7 +1,7 @@
 package com.jiangkedev.redis;
 
 import com.jiangkedev.ApplicationBaseTest;
-import com.jiangkedev.lock.DistributedLock;
+import com.jiangkedev.lock.RedisDistributedLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.testng.annotations.Test;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
  */
 public class RedisCacheUtilTest extends ApplicationBaseTest {
     @Autowired
-    private DistributedLock distributedLock;
+    private RedisDistributedLock distributedLock;
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
