@@ -7,6 +7,7 @@ import org.springframework.data.redis.connection.StringRedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.UUID;
  * @date 16:51
  */
 @Slf4j
+@Component
 public class RedisDistributedLock extends AbstractDistributedLock{
     private StringRedisTemplate redisTemplate;
     private ThreadLocal<String> lockFlag = new ThreadLocal<>();

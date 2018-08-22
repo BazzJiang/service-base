@@ -1,5 +1,6 @@
 package com.jiangkedev.lock;
 
+import org.aspectj.lang.Aspects;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -13,10 +14,15 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  */
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
-public class DistributedLockAutoConfiguration {
+public class DistributedLockConfiguration {
     @Bean
     @ConditionalOnBean(StringRedisTemplate.class)
     public DistributedLock redisDistributedLock(StringRedisTemplate redisTemplate){
         return new RedisDistributedLock(redisTemplate);
     }
+/*    @Bean
+    public DistributedLockAspect distributedLockAspect(){
+        DistributedLockAspect aspect = Aspects.aspectOf(DistributedLockAspect.class);
+        return aspect;
+    }*/
 }
