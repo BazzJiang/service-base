@@ -43,13 +43,14 @@ public class RedisDistributedLock extends AbstractDistributedLock{
     }
     private boolean setRedis(String key,long expire){
         try{
-            redisTemplate.execute((RedisCallback<Boolean>) connection -> {
+            boolean executeRes = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
                 StringRedisConnection  stringRedisConnection = (StringRedisConnection)connection;
                 String uuid = UUID.randomUUID().toString();
                 lockFlag.set(uuid);
                 Boolean result = stringRedisConnection.set(key,uuid,Expiration.from(Duration.ofMillis(expire)),RedisStringCommands.SetOption.SET_IF_ABSENT);
                 return result;
             });
+            return executeRes;
         }catch (Exception e){
             log.error("set redis occured an exception:{}",e.getMessage());
         }

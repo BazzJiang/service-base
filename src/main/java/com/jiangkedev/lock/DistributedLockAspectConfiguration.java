@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -21,9 +22,10 @@ import java.util.Arrays;
  */
 @Aspect
 @Configuration
-@ConditionalOnClass(RedisDistributedLock.class)
+@ConditionalOnClass(DistributedLock.class)
 @AutoConfigureAfter(DistributedLockAutoConfiguration.class)
 @Slf4j
+@Component
 public class DistributedLockAspectConfiguration {
     @Autowired
     private DistributedLock distributedLock;
@@ -32,7 +34,6 @@ public class DistributedLockAspectConfiguration {
     private void lockPoint(){
 
     }
-
     @Around("lockPoint()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable{
         Method method = ((MethodSignature)pjp.getSignature()).getMethod();

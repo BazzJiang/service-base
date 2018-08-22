@@ -6,6 +6,7 @@ import java.lang.annotation.*;
  * @author jiangke
  * @date 21:58
  */
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
